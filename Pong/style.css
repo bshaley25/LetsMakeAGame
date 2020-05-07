@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+canvas {
+    margin-top: 32px;
+    border-style: solid;
+}

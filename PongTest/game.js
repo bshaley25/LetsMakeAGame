@@ -14,6 +14,13 @@ document.addEventListener('keydown', event => {
     }
 })
 
+document.addEventListener('mousemove', (event) => {
+    if ( event.y < 400 && event.y > 0) {
+        user.Ycenter = event.y
+
+    }
+})
+
 
 class UserPaddle {
     constructor() {
