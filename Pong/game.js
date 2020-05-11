@@ -31,6 +31,7 @@ class Player {
     draw = () => {
         ctx.beginPath()
         ctx.fillRect(w*.03,this.y-(h*.06),w*.01, paddleWidth)
+        ctx.fillStyle = "hsl(292.7,100%,49.8%)"
     }
 }
 
