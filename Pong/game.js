@@ -23,12 +23,6 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
-document.addEventListener('mousemove', (event) => {
-    if ( event.y < h && event.y > 0)
-    player.y = event.y
-
-})
-
 class Player {
     constructor(y) {
         this.y = y
@@ -44,8 +38,8 @@ class Ball {
     constructor(x,y) {
         this.x = x
         this.y = y
-        this.dx = 1
-        this.dy = 3
+        this.dx = -3
+        this.dy = 0
     }
     
     draw = () => {
@@ -61,16 +55,49 @@ class Ball {
             this.dy *= -1
         }
 
-        if (this.x-ballRadius < w*.03 && this.x-ballRadius < w*.029) {
-            if (this.y < player.y ) {
+        if (this.x-ballRadius < w*.035) {
 
+            if ( Math.abs(this.y - player.y) < paddleWidth/2 + ballRadius) {
+                this.dx *= -1
+                this.dy = (this.y - player.y)/10
             }
+        } else if (this.x+ballRadius > w*.96) {
+
+            if ( Math.abs(this.y - computer.y) < paddleWidth/2 + ballRadius) {
+                this.dx *= -1
+                this.dy = (this.y - computer.y)/10
+            }
+        }
+
+        if (this.x < 0 || this.x > w) {
+            this.x = w/2
+            this.dx *= -1
         }
     }
 }
 
+class Computer {
+    constructor(y) {
+        this.y = y
+    }
+
+    draw = () => {
+        ctx.beginPath()
+        ctx.fillRect(w*.96,this.y-(h*.06),w*.01, paddleWidth)
+    }
+
+    update = () => {
+        if (this.y > ball.y && this.y - paddleWidth/2 > 0) {
+            this.y -= 3
+        } else if(this.y < ball.y) {
+            this.y += 3
+        }
+    } 
+}
+
 const player = new Player(h/2)
 const ball = new Ball(w/2,h/2)
+const computer = new Computer(h/2)
 
 function animate() {
     
@@ -80,6 +107,9 @@ function animate() {
     ball.update()
 
     player.draw()
+
+    computer.draw()
+    computer.update()
 
     board()
     requestAnimationFrame(animate)
