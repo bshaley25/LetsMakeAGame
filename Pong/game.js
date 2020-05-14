@@ -9,6 +9,7 @@ const paddleWidth = h*.12
 
 const board = () => {
     ctx.beginPath()
+    ctx.strokeStyle = "hsl(292.7,100%,49.8%)"
     ctx.arc(w/2,h/2,h/20,0,2*Math.PI)
     ctx.moveTo(w/2,0)
     ctx.lineTo(w/2,h)
@@ -30,6 +31,7 @@ class Player {
 
     draw = () => {
         ctx.beginPath()
+        ctx.fillStyle = "hsl(292.7,100%,49.8%)"
         ctx.fillRect(w*.03,this.y-(h*.06),w*.01, paddleWidth)
     }
 }
@@ -44,6 +46,7 @@ class Ball {
     
     draw = () => {
         ctx.beginPath()
+        ctx.fillStyle = `hsl(${this.x},100%,49.8%)`
         ctx.fillRect(this.x-ballRadius, this.y-ballRadius, w*.015, w*.015)
     }
 
@@ -83,6 +86,7 @@ class Computer {
 
     draw = () => {
         ctx.beginPath()
+        ctx.fillStyle = "hsl(292.7,100%,49.8%)"
         ctx.fillRect(w*.96,this.y-(h*.06),w*.01, paddleWidth)
     }
 
