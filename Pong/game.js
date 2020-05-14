@@ -42,12 +42,14 @@ class Ball {
         this.y = y
         this.dx = -3
         this.dy = 0
+        this.pastPositions = []
     }
     
     draw = () => {
         ctx.beginPath()
         ctx.fillStyle = `hsl(${this.x},100%,49.8%)`
         ctx.fillRect(this.x-ballRadius, this.y-ballRadius, w*.015, w*.015)
+        ctx.stroke
     }
 
     update = () => {
@@ -75,6 +77,31 @@ class Ball {
         if (this.x < 0 || this.x > w) {
             this.x = w/2
             this.dx *= -1
+        }
+
+        
+    }
+    tail = () => {
+        if (this.pastPositions.length <= 10) {
+            this.pastPositions.push(
+              {
+                x: this.x-ballRadius/2,
+                y: this.y-ballRadius/2
+              }
+            )
+        } else {
+            this.pastPositions.push(
+              {
+                x: this.x-ballRadius/2,
+                y: this.y-ballRadius/2
+              }
+            )
+            const endtail = this.pastPositions.shift()
+            const midtail = this.pastPositions[3]
+
+            ctx.beginPath()
+            ctx.fillRect(midtail.x, midtail.y - .5, w*.008, w*.008)
+            ctx.fillRect(endtail.x , endtail.y + .5, w*.005, w*.005)
         }
     }
 }
@@ -109,6 +136,7 @@ function animate() {
 
     ball.draw()
     ball.update()
+    ball.tail()
 
     player.draw()
 
