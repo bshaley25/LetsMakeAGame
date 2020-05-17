@@ -76,16 +76,16 @@ class Ball {
 
             if ( Math.abs(this.y - computer.y) < paddleWidth/2 + ballRadius) {
                 this.dx = this.dx * -1 - .5
-                this.dy = this.dx * Math.tan((this.y - player.y) * Math.PI / 180 * 1.5)
+                this.dy = this.dx * Math.tan((this.y - computer.y) * Math.PI / 180 * 1.5)
             }
         }
 
         if (this.x < 0 || this.x > w) {
             this.x < 0 ? computer.score++ : player.score++
+            this.dx = this.x < 0 ? 3 : -3
             this.x = w/2
             this.y = h/2
             this.dy = 0
-            this.x < 0 ? 2 : -2
             
         }
 
