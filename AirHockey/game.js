@@ -21,6 +21,10 @@ class Player {
     constructor() {
         this.x = undefined
         this.y = undefined
+        this.prevX = undefined
+        this.prevY = undefined
+        this.dx = undefined
+        this.dy = undefined
     }
 
     draw() {
@@ -31,14 +35,22 @@ class Player {
         ctx.stroke()
     }
 
+    update() {
+        this.dx = this.x - this.prevX
+        this.dy = this.y - this.prevY
+        this.prevX = this.x
+        this.prevY = this.y
+    }
+
 }
 
 class Puck {
+
     constructor() {
         this.x = w/2
         this.y = h/2
-        this.dx = 5
-        this.dy = 5
+        this.dx = 1
+        this.dy = 1
     }
 
     draw() {
@@ -65,12 +77,15 @@ class Puck {
         if(this.y + w*.04 > h || this.y - w*.04 < 0) {
             this.dy *= -1
         }
-
+        //vS + vP = vS' + vP' => VP' = vS + vP - cS'
         if(c < w*.04 + w*.05) {
-            
+            player.dx === 0 ? this.dx *= -1 : this.dx += player.dx * .5
+            player.dy === 0 ? this.dy *= -1 : this.dy += player.dy * .5
         }
 
-
+        Math.sign(this.dx) === 1 ? this.dx -= .1 : this.dx += .1
+        Math.sign(this.dy) === 1 ? this.dy -= .1 : this.dy += .1
+        
     }
 }
 
@@ -83,6 +98,7 @@ function animate() {
     board()
 
     player.draw()
+    player.update()
 
     puck.draw()
     puck.update()
