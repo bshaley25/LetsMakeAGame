@@ -89,8 +89,27 @@ class Puck {
     }
 }
 
+class Computer {
+
+    constructor() {
+        this.x = w/2
+        this.y = h/10
+        this.dx = 3
+        this.dy = 3
+    }
+
+    draw() {
+        ctx.beginPath()
+        ctx.arc(this.x, this.y , w*.05 ,0 ,2*Math.PI)
+        ctx.fillStyle = "blue"
+        ctx.fill()
+        ctx.stroke()
+    }
+}
+
 const player = new Player
 const puck = new Puck
+const computer = new Computer
 
 function animate() {
     ctx.clearRect(0,0,w,h)
@@ -102,6 +121,8 @@ function animate() {
 
     puck.draw()
     puck.update()
+
+    computer.draw()
     
     requestAnimationFrame(animate)
 }
