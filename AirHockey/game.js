@@ -9,6 +9,13 @@ const board = () => {
     ctx.arc(w/2,h/2,w/10,0,2*Math.PI)
     ctx.moveTo(0,h/2)
     ctx.lineTo(w,h/2)
+    ctx.moveTo(w/3, 0)
+    ctx.rect(w/3, 0, w/3, h/20)
+    ctx.moveTo(w/3, 0)
+    ctx.rect(w/3, h-h/20 , w/3, h)
+    ctx.font = '48px serif';
+    ctx.fillText(computer.score, w/15, h/15)
+    ctx.fillText(player.score, w/15, h - h/16)
     ctx.stroke()
 }
 
@@ -25,6 +32,7 @@ class Player {
         this.prevY = undefined
         this.dx = undefined
         this.dy = undefined
+        this.score = 0
     }
 
     draw() {
@@ -73,6 +81,20 @@ class Puck {
         const Cc = Math.sqrt(Ca**2 + Cb**2)
 
 
+        if(this.y - w*.04 < 0) {
+
+            if(this.x > w/3 && this.x < 2*w/3) {
+                computer.score++
+            } 
+
+        } else if (this.y + w*.04 > h) {
+
+            if(this.x > w/3 && this.x < 2*w/3) {
+                player.score++
+            } 
+        }
+
+
         if(this.x + w*.04 > w || this.x - w*.04 < 0) {
             this.dx *= -1
         }
@@ -94,6 +116,7 @@ class Puck {
         Math.sign(this.dy) === 1 ? this.dy -= .1 : this.dy += .1
         
     }
+
 }
 
 class Computer {
@@ -107,6 +130,7 @@ class Computer {
             x: w/2,
             y: h/10
         }
+        this.score = 0
     }
 
     draw() {
