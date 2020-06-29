@@ -12,6 +12,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: blanchedalmond;
+}
+
+h1 {
+    padding: 8px;
+    text-align: center;
 }
 
 section {
@@ -22,10 +28,13 @@ section {
 
 article {
     display: flex;
+    background-color: rgb(87, 154, 255);
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 8px;
     width: 300px;
+    border-radius: 20px;
 }
 
 img {

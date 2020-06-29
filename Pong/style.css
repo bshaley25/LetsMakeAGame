@@ -14,3 +14,7 @@ canvas {
     border-style: solid;
     border-color: hsl(292.7,100%,49.8%);
 }
+
+a {
+    font-size: 24px;
+}
