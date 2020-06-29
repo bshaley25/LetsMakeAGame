@@ -37,6 +37,10 @@ article {
     border-radius: 20px;
 }
 
+article > * {
+    padding: 2px;
+}
+
 img {
     width: 300px;
 }
