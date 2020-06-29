@@ -85,12 +85,20 @@ class Puck {
 
             if(this.x > w/3 && this.x < 2*w/3) {
                 computer.score++
+                puck.x = w/2
+                puck.y = h/2
+                puck.dx = 0
+                puck.dy = 0
             } 
 
         } else if (this.y + w*.04 > h) {
 
             if(this.x > w/3 && this.x < 2*w/3) {
                 player.score++
+                puck.x = w/2
+                puck.y = h/2
+                puck.dx = 0
+                puck.dy = 0
             } 
         }
 
