@@ -1,8 +1,10 @@
 body {
     /* display: flex; */
     /* justify-content: center; */
+    background-color: blanchedalmond;
 }
 
 canvas {
+    background-color: white;
     border-style: dashed;
 }

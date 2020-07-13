@@ -1,22 +1,22 @@
 const canvas = document.createElement('canvas')
+document.body.appendChild(canvas)
 const w = canvas.width = 400
 const h = canvas.height = 400
-document.body.appendChild(canvas)
-const ctx = canvas.getContext('2d')
+const ctx = canvas.getContext("2d");
 
-// const spriteSheet = new Image()
-// spriteSheet.src = './img/spaceShip.png'
-// document.body.appendChild(spriteSheet)
+const img = document.createElement("img")
+img.src = './img/spaceShip.png'
+document.body.appendChild(img)
 
-ctx.arc(0,0,50,0, 2*Math.PI)
+document.body.appendChild(img)
 
+img.onload = function() {
+    animate();
+};
 
-// function animate() {
-//     ctx.beginPath()
-//     ctx.lineTo(50,50)
-//     ctx.stroke
+  
+function animate() {
+    ctx.drawImage(img, 0, 0, 60, 60, w*.35, h*.35, w/4, h/4)
 
-//     requestAnimationFrame(animate)
-// }
-
-// animate()
+    requestAnimationFrame(animate())
+}
