@@ -61,6 +61,13 @@ class Ball {
     }
 }
 
+class Brick {
+    constructor(x,y) {
+        this.x = x
+        this.y = y
+    }
+}
+
 const paddle = new Paddle()
 const ball = new Ball()
 
