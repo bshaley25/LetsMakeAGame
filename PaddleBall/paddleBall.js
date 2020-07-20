@@ -22,8 +22,8 @@ document.addEventListener('keydown', (event) => {
 
 class Paddle {
     constructor() {
-        this.y = h*.95
         this.x = w/2
+        this.y = h*.95
     }
 
     draw() {
@@ -33,10 +33,36 @@ class Paddle {
         ctx.stroke
     }
 
+}
 
+class Ball {
+    constructor() {
+        this.x = w/2
+        this.y = h*.90
+        this.dx = 0
+        this.dy = 0
+    }
+    
+    draw() {
+        ctx.beginPath()
+        ctx.fillStyle = `red`
+        ctx.arc(this.x, this.y, 50, 0, Math.PI*2)
+        // ctx.arc(this.x, this.y, 100, 0, 2*Math.PI)
+        ctx.stroke
+    }
+
+    update() {
+        // this.x += this.dx
+        // this.y += this.dy
+
+        // if (this.y+ballRadius > h || this.y-ballRadius < 0) {
+        //     this.dy *= -1
+        // }
+    }
 }
 
 const paddle = new Paddle()
+const ball = new Ball()
 
 
 function animate() {
@@ -44,6 +70,8 @@ function animate() {
     ctx.clearRect(0,0, w, h)
 
     paddle.draw()
+    ball.draw()
+    // ball.update()
     
     requestAnimationFrame(animate)
 }
