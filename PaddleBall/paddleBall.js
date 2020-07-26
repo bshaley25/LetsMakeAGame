@@ -7,10 +7,10 @@ const h = canvas.height = 800
 
 
 const paddleWidth = w*.1
+const paddleHeight = h*.02
 const paddleTolerance = 10
 
 const ballRadius = 8
-
 
 
 document.addEventListener('keydown', (event) => {
@@ -39,7 +39,7 @@ class Paddle {
         ctx.beginPath()
         ctx.fillStyle = `hsl(40,100%,49.8%)`
         ctx.fillRect(this.x - paddleWidth/2, this.y, paddleWidth, h*.02)
-        ctx.stroke
+        ctx.stroke()
     }
 
 }
@@ -57,7 +57,7 @@ class Ball {
         ctx.arc(this.x, this.y, ballRadius, 0, 2 * Math.PI, false);
         ctx.fillStyle = `hsl(40,100%,49.8%)`;
         ctx.fill();
-        ctx.stroke
+        ctx.stroke()
     }
 
     update() {
@@ -99,15 +99,38 @@ class Ball {
 
 class Brick {
     constructor(x,y) {
-        this.x = x
-        this.y = y
+        this.x = x*paddleWidth
+        this.y = y*paddleHeight
     }
 
+    draw() {
+        ctx.beginPath()
+        ctx.fillStyle = `hsl(50,100%,49.8%)`
+        ctx.fillRect(this.x, this.y, paddleWidth, paddleHeight)
+        ctx.stroke()
+    }
     
 }
 
+
 const paddle = new Paddle()
 const ball = new Ball()
+const bricks = []
+
+const createRandomBricks = (numberOfBricks) => {
+
+    for(let i=0;i<numberOfBricks;i++) {
+        const x = Math.floor(Math.random()*10)
+        const y = Math.floor(Math.random()*10) + 4
+
+        console.log()
+
+        bricks.push(new Brick(x,y))
+    }
+}
+
+createRandomBricks(25)
+
 
 
 function animate() {
@@ -117,6 +140,8 @@ function animate() {
     paddle.draw()
     ball.draw()
     ball.update()
+    
+    bricks.forEach(brick => brick.draw())
     
     requestAnimationFrame(animate)
 }
