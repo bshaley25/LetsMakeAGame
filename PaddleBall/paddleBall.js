@@ -17,7 +17,6 @@ document.addEventListener('keydown', (event) => {
 
     if (event.key === 'ArrowRight') {
         paddle.x += 10
-        console.log("butts")
     } else if (event.key === 'ArrowLeft') {
         paddle.x -= 10
     }
@@ -63,8 +62,15 @@ class Ball {
 
     update() {
 
-        if(ball.dx === 0 && ball.dy === 0) {
+        if(this.dx === 0 && this.dy === 0) {
             this.x = paddle.x
+            this.y = paddle.y - ballRadius
+        }
+        if (this.y > h) {
+            this.x = paddle.x
+            this.y = paddle.y - ballRadius
+            this.dx = 0
+            this.dy = 0
         }
 
         this.x += this.dx
@@ -77,11 +83,15 @@ class Ball {
         if (this.y-ballRadius < 0) {
             this.dy *= -1
         }
+
         
         if (this.y > paddle.y - ballRadius  && this.y < paddle.y + paddleTolerance - ballRadius) {
-            
             if (this.x + ballRadius > paddle.x - paddleWidth/2 && this.x - ballRadius < paddle.x + paddleWidth/2) {
+
                 this.dy *= -1
+                this.dx = (this.x - paddle.x) / 9
+                this.dy -= 0.2
+                
             }
         }
     }
@@ -92,6 +102,8 @@ class Brick {
         this.x = x
         this.y = y
     }
+
+    
 }
 
 const paddle = new Paddle()
