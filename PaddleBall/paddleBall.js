@@ -21,6 +21,12 @@ document.addEventListener('keydown', (event) => {
     } else if (event.key === 'ArrowLeft') {
         paddle.x -= 10
     }
+    if (event.key === " ") {  //Space Bar
+        if(ball.dx === 0 && ball.dy === 0) {
+            ball.dy += 3
+        }
+    }
+
 
 })
 
@@ -41,10 +47,10 @@ class Paddle {
 
 class Ball {
     constructor() {
-        this.x = w/2 //paddle.x
-        this.y = h/2 //paddle.y - ballRadius
-        this.dx = 3
-        this.dy = 5
+        this.x = paddle.x
+        this.y = paddle.y - ballRadius
+        this.dx = 0
+        this.dy = 0
     }
     
     draw() {
@@ -56,6 +62,11 @@ class Ball {
     }
 
     update() {
+
+        if(ball.dx === 0 && ball.dy === 0) {
+            this.x = paddle.x
+        }
+
         this.x += this.dx
         this.y += this.dy
 
