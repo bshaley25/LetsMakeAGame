@@ -5,7 +5,10 @@ document.body.appendChild(canvas)
 const w = canvas.width = 800
 const h = canvas.height = 800
 
+
 const paddleWidth = w*.1
+
+const ballRadius = 8
 
 document.addEventListener('keydown', (event) => {
 
@@ -37,27 +40,30 @@ class Paddle {
 
 class Ball {
     constructor() {
-        this.x = w/2
-        this.y = h*.90
-        this.dx = 0
-        this.dy = 0
+        this.x = paddle.x
+        this.y = paddle.y - ballRadius
+        this.dx = -5
+        this.dy = -5
     }
     
     draw() {
-        ctx.beginPath()
-        ctx.fillStyle = `red`
-        ctx.arc(this.x, this.y, 50, 0, Math.PI*2)
-        // ctx.arc(this.x, this.y, 100, 0, 2*Math.PI)
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, ballRadius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = `hsl(40,100%,49.8%)`;
+        ctx.fill();
         ctx.stroke
     }
 
     update() {
-        // this.x += this.dx
-        // this.y += this.dy
+        this.x += this.dx
+        this.y += this.dy
 
-        // if (this.y+ballRadius > h || this.y-ballRadius < 0) {
-        //     this.dy *= -1
-        // }
+        if (this.x+ballRadius > w || this.x-ballRadius < 0) {
+            this.dx *= -1
+        }
+        if (this.y-ballRadius < 0) {
+            this.dy *= -1
+        }
     }
 }
 
@@ -78,7 +84,7 @@ function animate() {
 
     paddle.draw()
     ball.draw()
-    // ball.update()
+    ball.update()
     
     requestAnimationFrame(animate)
 }
