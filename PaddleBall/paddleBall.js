@@ -7,12 +7,13 @@ const h = canvas.height = 800
 
 
 const paddleWidth = w*.1
+const paddleTolerance = 10
 
 const ballRadius = 8
 
-document.addEventListener('keydown', (event) => {
 
-    console.log(event)
+
+document.addEventListener('keydown', (event) => {
 
     if (event.key === 'ArrowRight') {
         paddle.x += 10
@@ -40,10 +41,10 @@ class Paddle {
 
 class Ball {
     constructor() {
-        this.x = paddle.x
-        this.y = paddle.y - ballRadius
-        this.dx = -5
-        this.dy = -5
+        this.x = w/2 //paddle.x
+        this.y = h/2 //paddle.y - ballRadius
+        this.dx = 3
+        this.dy = 5
     }
     
     draw() {
@@ -61,8 +62,16 @@ class Ball {
         if (this.x+ballRadius > w || this.x-ballRadius < 0) {
             this.dx *= -1
         }
+
         if (this.y-ballRadius < 0) {
             this.dy *= -1
+        }
+        
+        if (this.y > paddle.y - ballRadius  && this.y < paddle.y + paddleTolerance - ballRadius) {
+            
+            if (this.x + ballRadius > paddle.x - paddleWidth/2 && this.x - ballRadius < paddle.x + paddleWidth/2) {
+                this.dy *= -1
+            }
         }
     }
 }
